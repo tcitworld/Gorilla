@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.*;
 import java.awt.Dimension;
@@ -10,6 +11,7 @@ public class Fenetre extends JPanel {
     public Fenetre(){
         fen.setSize(800,600);
         fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fen.setBackground(Color.YELLOW);
         caracteres=new EnsembleCaracteres();
         fen.add(this); 
         fen.setVisible(true);
