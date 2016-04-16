@@ -18,10 +18,17 @@ class EnsembleCaracteres {
 		caracteres.clear();
 	}
 
-	public void union(EnsembleCaracteres a) {
-		for (CaracterePositionne cp : a.caracteres) {
-			this.ajouteCar(cp.x, cp.y, cp.c);
-		}
+	public EnsembleCaracteres copy() {
+		EnsembleCaracteres a = new EnsembleCaracteres();
+		a.caracteres = this.caracteres;
+		return a;
+	}
+
+	public EnsembleCaracteres union(EnsembleCaracteres ens){
+		EnsembleCaracteres uni = new EnsembleCaracteres();
+		uni.caracteres.addAll(this.caracteres);
+		uni.caracteres.addAll(ens.caracteres);
+		return uni;
 	}
 
 	public String toString() {
@@ -37,9 +44,8 @@ class EnsembleCaracteres {
 	public boolean hasChar(Double x, Double y) {
 		int i = 0;
 		boolean hasChar = false;
-		System.out.println("x : " + x + " y : " + y);
 		while (i < this.caracteres.size() && !hasChar) {
-			hasChar = Math.round(this.caracteres.get(i).x) == Math.round(x) && Math.round(this.caracteres.get(i).y) == Math.round(y) && this.caracteres.get(i).c != ' ';
+			hasChar = Math.abs(Math.round(this.caracteres.get(i).x) - Math.round(x)) < 2 && Math.abs(Math.round(this.caracteres.get(i).y) - Math.round(y)) < 2 && this.caracteres.get(i).c != ' ';
 			i++;
 		}
 		return hasChar;

@@ -8,6 +8,9 @@ public class Projectile {
 	Projectile(double x, double y) {
 		this.x = x;
 		this.y = y;
+		this.vitesseX = 60.0;
+		this.vitesseY = 35.0;
+		this.aY = -0.6;
 		this.car = new EnsembleCaracteres();
 		this.afficheCar();
 	}
@@ -16,9 +19,10 @@ public class Projectile {
 		return this.car;
 	}
 
-	public void bouge(double vitesseX, double vitesseY, double aY) {
+	public void bouge() {
+		double deltaT;
 		this.car.vider();
-		double deltaT = 1/(Math.sqrt(vitesseX*vitesseX+vitesseY*vitesseY));
+		deltaT = 1/(Math.sqrt(vitesseX*vitesseX+vitesseY*vitesseY));
 		this.x+=vitesseX*deltaT;
 		this.y+=vitesseY*deltaT;
 		this.vitesseY+=aY;
@@ -34,21 +38,36 @@ public class Projectile {
 	}
 
 	public boolean estDans(Fenetre f) {
-		return this.y < f.getNbLignes() && this.x < f.getNbColonnes();
+		return this.y < f.getNbLignes() && this.x < f.getNbColonnes() && this.y > 0 && this.x > 0;
 	}
 
 	public boolean touche(Cible c) {
-		// int i = 0;
-		// boolean touche = false;
-		// while(i < c.getEnsembleCaractere().caracteres.size() && !touche) {
-		// 	touche = this.getEnsembleCaractere().hasChar(c.getEnsembleCaractere().caracteres.get(i).x, c.getEnsembleCaractere().caracteres.get(i).y);
-		// 	i++;
-		// }
-		// return touche;
-		return Math.abs(this.y - c.y) < 3 && Math.abs(this.x - c.x) < 3;
+		int i = 0;
+		boolean touche = false;
+		while(i < this.car.caracteres.size() && !touche) {
+			touche = c.getEnsembleCaractere().hasChar(this.car.caracteres.get(i).x, this.car.caracteres.get(i).y);
+			i++;
+		}
+		return touche;
 	}
 
 	public boolean touche(Obstacle o) {
-		return Math.abs(this.y - o.y) < 3 && Math.abs(this.x - o.x) < 3;
+		int i = 0;
+		boolean touche = false;
+		while(i < this.car.caracteres.size() && !touche) {
+			touche = o.getEnsembleCaractere().hasChar(this.car.caracteres.get(i).x, this.car.caracteres.get(i).y);
+			i++;
+		}
+		return touche;
+	}
+
+	public void setChars(EnsembleCaracteres t) {
+		this.car.vider();
+		this.car = t;
+	}
+
+	public void setTir(int angle, double force) {
+		this.vitesseX = force*Math.cos(angle/180*Math.PI);
+		this.vitesseY = force*Math.sin(angle/180*Math.PI);
 	}
 }

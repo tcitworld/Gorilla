@@ -8,6 +8,6 @@ public class CaracterePositionne{
     }
 
     public String toString() {
-    	return this.c + " en " + this.x + " x " + this.y;
+    	return this.c + " en  x : " + this.x + " y : " + this.y;
     }
 }
