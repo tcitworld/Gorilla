@@ -8,9 +8,6 @@ public class Projectile {
 	Projectile(double x, double y) {
 		this.x = x;
 		this.y = y;
-		this.vitesseX = 60.0;
-		this.vitesseY = 35.0;
-		this.aY = -0.6;
 		this.car = new EnsembleCaracteres();
 		this.afficheCar();
 	}

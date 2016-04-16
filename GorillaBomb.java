@@ -48,6 +48,7 @@ public class GorillaBomb {
     }
 
     public void debutTour() {
+        this.p = new Projectile(5,5);
         Scanner in = new Scanner(System.in);
         System.out.println("Entrez l'angle");
         this.angle = in.nextInt();
