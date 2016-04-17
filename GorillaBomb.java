@@ -1,59 +1,57 @@
 import java.util.Scanner;
 
-public class GorillaBomb {
+public class GorillaBomb{
+	private Projectile p;
+	private Cible c;
+	private Obstacle o;
+	private boolean fin;
 
-    Projectile p;
-    Cible c;
-    Obstacle o;
-    EnsembleCaracteres a;
-    int angle;
-    double force;
+	public GorillaBomb(){
+		c = new Cible(58,22);
+		o = new Obstacle(30,1);
+		fin = false;
+		p = new Projectile(7,5);
+	}
 
-    GorillaBomb() {
-    	this.c = new Cible(58,20);
-    	this.o = new Obstacle(30, 1);
-        this.o.make();
-        this.p = new Projectile(5,5);
-        this.a = new EnsembleCaracteres();
-        this.a = p.getEnsembleCaractere().union(c.getEnsembleCaractere());
-        this.a = a.union(o.getEnsembleCaractere());
-    }
+	public void affiche(Fenetre f) {
+		f.AfficherCaracteres(this.c.getEnsembleCaracteres().union(this.p.getEnsembleCaracteres()).union(o.getEnsembleCaracteres()));
+	}
 
-    public void evolue(Fenetre f) {
-        this.p.bouge();
-        // System.out.println(o.getEnsembleCaractere().toString());
-        // System.out.println("cible : " + c.x + " " + c.y);
-        // System.out.println("obstacle : " + o.x + " " + o.y);
-        this.a = new EnsembleCaracteres();
-        this.a = p.getEnsembleCaractere().union(c.getEnsembleCaractere());
-        this.a = a.union(o.getEnsembleCaractere());
-    }
+	public void debutTour(Fenetre f){
+		p = new Projectile(7,5);
+		this.affiche(f);
+		p.initialisation();
+	}
 
-    public void affiche(Fenetre f) {
-        f.AfficherCaracteres(this.a);
-        o.getEnsembleCaractere().vider();
-        o.make();
-        System.out.println("projectile x : " + p.x + " y : " + p.y);
-    }
+	public boolean finTour(Fenetre f){
+		return !p.estDans(f) || p.touche(o) || p.touche(c);	
+	}
 
-    public boolean finTour(Fenetre f) {
-        System.out.println("estDans : " + this.p.estDans(f));
-        System.out.println("touche obstacle : " + this.p.touche(this.o));
-        return !this.p.estDans(f) || this.p.touche(this.o);
-    }
+	public void evolue(){
+		p.bouge();
+	}
 
-    public boolean fin() {
-        System.out.println("touche cible : " + this.p.touche(c));
-        return this.p.touche(c);
-    }
+	public boolean fin(){
+		return p.touche(c);
+	}
 
-    public void debutTour() {
-        this.p = new Projectile(5,5);
-        Scanner in = new Scanner(System.in);
-        System.out.println("Entrez l'angle");
-        this.angle = in.nextInt();
-        System.out.println("Entrez la force");
-        this.force = in.nextDouble();
-        this.p.setTir(this.angle, this.force);
-    }
+	public void setFinTour(){
+		if (!p.touche(c)) {
+			boolean pasValable = true;
+			while(pasValable){
+				Scanner sc = new Scanner(System.in);
+				System.out.print("Voulez vous continuer ? o/n : ");
+				String str = sc.nextLine();
+				if(str.charAt(0) == 'o'){
+					this.fin = false;
+					pasValable = false;
+				} else {
+					if(str.charAt(0) == 'n'){
+						this.fin = true;
+						pasValable = false;
+					}
+				}
+			}
+		}
+	}
 }

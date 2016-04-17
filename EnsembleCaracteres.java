@@ -45,7 +45,7 @@ class EnsembleCaracteres {
 		int i = 0;
 		boolean hasChar = false;
 		while (i < this.caracteres.size() && !hasChar) {
-			hasChar = Math.abs(Math.round(this.caracteres.get(i).x) - Math.round(x)) < 2 && Math.abs(Math.round(this.caracteres.get(i).y) - Math.round(y)) < 2 && this.caracteres.get(i).c != ' ';
+			hasChar = Math.abs(Math.round(this.caracteres.get(i).x) - Math.round(x)) < 1 && Math.abs(Math.round(this.caracteres.get(i).y) - Math.round(y)) < 1 && this.caracteres.get(i).c != ' ';
 			i++;
 		}
 		return hasChar;

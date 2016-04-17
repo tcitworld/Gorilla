@@ -1,7 +1,7 @@
 import java.awt.Graphics;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.*;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ public class Fenetre extends JPanel {
     public Fenetre(){
         fen.setSize(800,600);
         fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fen.setBackground(Color.YELLOW);
+        fen.setBackground(Color.CYAN);
         caracteres=new EnsembleCaracteres();
         fen.add(this); 
         fen.setVisible(true);
@@ -43,10 +43,5 @@ public class Fenetre extends JPanel {
         }
         catch(InterruptedException e){}
     }
-
-    public boolean estDans(EnsembleCaracteres car) {
-        return car.equals(caracteres);
-    }
-
 }
 

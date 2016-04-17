@@ -1,5 +1,5 @@
-public class Cible {
-	public double x, y;
+public class Cible{
+	private double x, y;
 	private EnsembleCaracteres car;
 
 	Cible(double x, double y) {
@@ -14,7 +14,15 @@ public class Cible {
 		this.car.ajouteCar(this.x+2,this.y+1,'o');
 	}
 
-	public EnsembleCaracteres getEnsembleCaractere() {
+	public EnsembleCaracteres getEnsembleCaracteres() {
 		return this.car;
+	}
+
+	public double getX(){
+		return this.x;
+	}
+
+	public double getY(){
+		return this.y;
 	}
 }
